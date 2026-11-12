@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Orly Israel, Social Producer</title>
+<meta name="description" content="Los Angeles social content producer. 15–20 short-form pieces a month for toy brands.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* Toy-plastic palette on a pale violet field; saturated cards, chunky display type,
+     slight tilts that straighten on hover. Single visual world, light only. */
+  :root{
+    color-scheme: light;
+    --paper:#F3F1FB;
+    --ink:#15123B;
+    --ink-soft:#615B8A;
+    --rule:#DEDAF0;
+    --cream:#FFFBF2;
+
+    --tomato:#FF4D3D;
+    --blue:#2F6BFF;
+    --sunny:#FFC23C;
+    --mint:#00C2A0;
+    --bubble:#FF6FB5;
+    --grape:#7A4DFF;
+
+    --display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+    --body:"Outfit","Avenir Next",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    background:var(--paper);color:var(--ink);
+    font-family:var(--body);font-size:16px;line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+  h1,h2,h3{font-family:var(--display);text-wrap:balance;letter-spacing:-.02em}
+  a{color:inherit}
+
+  /* chunky section tag */
+  .tag{
+    display:inline-block;font-family:var(--display);font-weight:800;
+    font-size:13px;letter-spacing:.02em;padding:6px 13px;border-radius:999px;
+    color:var(--cream);background:var(--ink);
+  }
+  .tag.t-tomato{background:var(--tomato)} .tag.t-blue{background:var(--blue)}
+  .tag.t-grape{background:var(--grape)}  .tag.t-mint{background:var(--mint)}
+  .tag.t-sunny{background:var(--sunny);color:var(--ink)}
+
+  /* ---------- hero ---------- */
+  header{padding:60px 0 0}
+  .who{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:34px}
+  .who b{font-family:var(--display);font-weight:800;font-size:19px}
+  .who span{color:var(--ink-soft);font-size:14px;font-weight:500}
+  h1{font-size:clamp(38px,7.4vw,86px);line-height:.98;font-weight:800;max-width:15ch}
+  h1 .pop{
+    display:inline-block;background:var(--sunny);color:var(--ink);
+    padding:0 .14em;border-radius:10px;transform:rotate(-1.4deg);
+  }
+  .lede{margin-top:28px;max-width:60ch;font-size:clamp(16px,1.7vw,19px);color:#3A3566}
+
+  /* hero: headline beside the portrait */
+  .herogrid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);
+    gap:40px;align-items:center}
+  .shot{border-radius:28px;overflow:hidden;line-height:0;transform:rotate(1.8deg);
+    box-shadow:0 20px 54px rgba(21,18,59,.16);transition:transform .25s ease}
+  .shot:hover{transform:rotate(0) scale(1.015)}
+  .shot img{width:100%;height:auto;display:block}
+  @media(max-width:880px){
+    .herogrid{grid-template-columns:1fr;gap:28px}
+    .shot{max-width:330px;transform:rotate(-1.6deg)}
+  }
+
+  /* stat chips */
+  .chips{display:flex;flex-wrap:wrap;gap:14px;margin-top:44px}
+  .chip{
+    flex:1 1 180px;border-radius:20px;padding:20px 20px 18px;
+    color:var(--cream);transform:rotate(-.9deg);
+  }
+  .chip:nth-child(2){transform:rotate(1.1deg)}
+  .chip:nth-child(3){transform:rotate(-.5deg)}
+  .chip:nth-child(4){transform:rotate(1.4deg)}
+  .chip .n{font-family:var(--display);font-weight:800;font-size:clamp(30px,3.6vw,44px);
+    line-height:1;font-variant-numeric:tabular-nums}
+  .chip .k{margin-top:8px;font-size:12.5px;font-weight:500;opacity:.92;line-height:1.35}
+  .c-tomato{background:var(--tomato)} .c-blue{background:var(--blue)}
+  .c-grape{background:var(--grape)}
+  .c-sunny{background:var(--sunny);color:var(--ink)}
+  .c-mint{background:var(--mint)} .c-bubble{background:var(--bubble)}
+
+  /* ---------- sections ---------- */
+  section{padding:76px 0 0}
+  .shead{display:flex;align-items:center;justify-content:space-between;gap:16px;
+    flex-wrap:wrap;margin-bottom:26px}
+  h2{font-size:clamp(24px,3.4vw,34px);font-weight:800}
+  .note{color:var(--ink-soft);font-size:14px;font-weight:500}
+
+  /* ---------- work cards ---------- */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(216px,1fr));gap:18px}
+
+  /* horizontal rail — vertical work scrolls sideways and snaps */
+  .rail{
+    display:flex;gap:18px;overflow-x:auto;overflow-y:hidden;
+    scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;
+    padding:8px 20px 16px 0;margin-right:-20px;
+    scrollbar-width:thin;scrollbar-color:var(--rule) transparent;
+  }
+  .rail::-webkit-scrollbar{height:9px}
+  .rail::-webkit-scrollbar-track{background:transparent}
+  .rail::-webkit-scrollbar-thumb{background:var(--rule);border-radius:999px}
+  .rail::-webkit-scrollbar-thumb:hover{background:#C7C1E4}
+  .rail .piece{flex:0 0 250px;scroll-snap-align:start}
+  .rail.ig .frame{aspect-ratio:auto;height:445px}
+  @media(max-width:520px){.rail .piece{flex:0 0 78%}}
+  .piece{display:flex;flex-direction:column;gap:10px}
+  .frame{
+    position:relative;border-radius:22px;overflow:hidden;aspect-ratio:9/16;
+    transform:rotate(-1deg);transition:transform .2s ease;
+  }
+  .piece:nth-child(even) .frame{transform:rotate(1deg)}
+  .piece:hover .frame{transform:rotate(0) translateY(-4px)}
+  .frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;background:#fff}
+  .ig .frame{aspect-ratio:auto;height:560px}
+
+  .pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:22px}
+  .wideframe{position:relative;border-radius:22px;overflow:hidden;aspect-ratio:16/9;
+    transform:rotate(-.6deg);transition:transform .2s ease}
+  .pair .piece:nth-child(even) .wideframe{transform:rotate(.6deg)}
+  .pair .piece:hover .wideframe{transform:rotate(0) translateY(-4px)}
+  .wideframe iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;background:#fff}
+
+  .cap{font-size:13.5px;color:var(--ink-soft);line-height:1.4;padding:0 4px}
+  .cap b{display:block;color:var(--ink);font-family:var(--display);font-weight:700;font-size:15px}
+  .cap a{color:var(--blue);text-decoration:none;font-weight:600}
+  .cap a:hover{text-decoration:underline}
+
+  /* poster = resting state of every frame */
+  .poster{
+    position:absolute;inset:0;width:100%;height:100%;border:0;cursor:pointer;
+    font-family:var(--display);display:flex;flex-direction:column;
+    align-items:center;justify-content:center;gap:14px;text-decoration:none;
+    color:var(--cream);background:var(--grape);
+  }
+  .p-tomato{background:var(--tomato)} .p-blue{background:var(--blue)}
+  .p-mint{background:var(--mint)}     .p-bubble{background:var(--bubble)}
+  .p-grape{background:var(--grape)}
+  .p-sunny{background:var(--sunny);color:var(--ink)}
+  .poster .pico{
+    width:62px;height:62px;border-radius:50%;background:rgba(255,255,255,.22);
+    display:flex;align-items:center;justify-content:center;font-size:20px;padding-left:4px;
+    transition:transform .2s ease;
+  }
+  .poster:hover .pico{transform:scale(1.09)}
+  .poster .plab{font-size:13px;font-weight:700;letter-spacing:.04em}
+  .openbtn{
+    position:absolute;top:12px;right:12px;z-index:3;font-family:var(--body);
+    background:var(--cream);color:var(--ink);font-size:11.5px;font-weight:600;
+    padding:5px 10px;border-radius:999px;text-decoration:none;
+  }
+
+  /* ---------- link tiles ---------- */
+  .links{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+  .lt{display:block;border-radius:18px;padding:20px;text-decoration:none;
+    background:var(--ink);color:var(--cream);transition:transform .2s ease}
+  .lt:nth-child(2){background:var(--blue)} .lt:nth-child(3){background:var(--bubble)}
+  .lt:hover{transform:translateY(-3px)}
+  .lt b{display:block;font-family:var(--display);font-weight:700;font-size:15px;margin-bottom:3px}
+  .lt span{font-size:13px;opacity:.88}
+
+  /* ---------- credits ---------- */
+  .rows{border-top:2px solid var(--rule)}
+  .row{display:grid;grid-template-columns:auto 1fr 1.5fr;gap:14px;align-items:baseline;
+    padding:16px 0;border-bottom:2px solid var(--rule)}
+  .dot{width:11px;height:11px;border-radius:50%;background:var(--tomato);transform:translateY(-1px)}
+  .row:nth-child(2) .dot{background:var(--blue)}
+  .row:nth-child(3) .dot{background:var(--mint)}
+  .row:nth-child(4) .dot{background:var(--grape)}
+  .row:nth-child(5) .dot{background:var(--sunny)}
+  .row:nth-child(6) .dot{background:var(--bubble)}
+  .row:nth-child(7) .dot{background:var(--tomato)}
+  .row:nth-child(8) .dot{background:var(--blue)}
+  .row:nth-child(9) .dot{background:var(--mint)}
+  .row b{font-family:var(--display);font-weight:700;font-size:15.5px}
+  .row span{color:var(--ink-soft);font-size:14px}
+  @media(max-width:640px){
+    .row{grid-template-columns:auto 1fr;gap:8px}
+    .row span{grid-column:2}
+  }
+
+  /* ---------- skills ---------- */
+  .caps{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:18px}
+  .cap2{background:var(--cream);border-radius:20px;padding:22px}
+  .cap2 b{display:block;font-family:var(--display);font-weight:800;font-size:16px;margin-bottom:8px}
+  .cap2 p{color:var(--ink-soft);font-size:14px}
+
+  /* ---------- cta ---------- */
+  .cta{margin-top:82px;background:var(--tomato);color:var(--cream)}
+  .cta .inner{max-width:1120px;margin:0 auto;padding:56px 20px;
+    display:flex;justify-content:space-between;align-items:flex-end;gap:28px;flex-wrap:wrap}
+  .cta h3{font-size:clamp(26px,4.2vw,44px);font-weight:800;max-width:17ch;line-height:1.02}
+  .cta a{background:var(--cream);color:var(--ink);text-decoration:none;
+    font-family:var(--display);font-weight:800;font-size:16px;
+    padding:15px 26px;border-radius:999px;white-space:nowrap}
+  .fine{padding:26px 20px 60px;max-width:1120px;margin:0 auto;color:var(--ink-soft);font-size:13px}
+
+  a:focus-visible,.poster:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none!important}
+    .frame,.wideframe,.chip,h1 .pop{transform:none!important}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="who">
+      <b>Orly Israel</b>
+      <span>Social content producer · Los Angeles</span>
+    </div>
+
+    <div class="herogrid">
+      <div>
+        <h1>Fifteen to twenty pieces a month. <span class="pop">One shoot day.</span></h1>
+        <p class="lede">
+          I shoot, edit and write short-form social for toy brands — brief to published, start to finish.
+          Ten years in production, the last stretch of it making launch content in the kids category.
+        </p>
+      </div>
+      <figure class="shot">
+        <img src="orly.jpg" alt="Orly Israel mid-jump against a yellow backdrop" width="860" height="1074" fetchpriority="high">
+      </figure>
+    </div>
+
+    <div class="chips">
+      <div class="chip c-blue"><div class="n">215K</div><div class="k">115K Instagram · 100K Facebook, own channel</div></div>
+      <div class="chip c-tomato"><div class="n">9 mo</div><div class="k">To build that audience</div></div>
+      <div class="chip c-grape"><div class="n">5×/wk</div><div class="k">Publishing cadence held</div></div>
+      <div class="chip c-sunny"><div class="n">1</div><div class="k">Shoot day a week behind it</div></div>
+    </div>
+  </header>
+
+  <section>
+    <div class="shead">
+      <div><span class="tag t-tomato">Toy launches</span><h2 style="margin-top:12px">Short-form for Vango Toys</h2></div>
+      <span class="note">Shot, cut and published solo · scroll →</span>
+    </div>
+    <div class="rail">
+      <div class="piece">
+        <div class="frame">
+          <iframe src="https://www.youtube.com/embed/gh6v7wFbSy4" title="Vango Toys short" data-poster="p-tomato" loading="lazy"></iframe>
+        </div>
+        <div class="cap"><b>Vango Toys</b>[one-line label] · <a href="https://www.youtube.com/shorts/gh6v7wFbSy4" target="_blank" rel="noopener">open</a></div>
+      </div>
+      <div class="piece">
+        <div class="frame">
+          <iframe src="https://www.youtube.com/embed/_QDM3MLnYI0" title="Vango Toys short" data-poster="p-blue" loading="lazy"></iframe>
+        </div>
+        <div class="cap"><b>Vango Toys</b>[one-line label] · <a href="https://www.youtube.com/shorts/_QDM3MLnYI0" target="_blank" rel="noopener">open</a></div>
+      </div>
+      <div class="piece">
+        <div class="frame">
+          <iframe src="https://www.youtube.com/embed/TO0FaNBPhnk" title="Vango Toys short" data-poster="p-mint" loading="lazy"></iframe>
+        </div>
+        <div class="cap"><b>Vango Toys</b>[one-line label] · <a href="https://www.youtube.com/shorts/TO0FaNBPhnk" target="_blank" rel="noopener">open</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="shead">
+      <div><span class="tag t-grape">Own channels</span><h2 style="margin-top:12px">Orly Has A Question · Chef on the House</h2></div>
+      <span class="note">Written, hosted, shot and cut · scroll →</span>
+    </div>
+    <div class="rail ig">
+      <div class="piece">
+        <div class="frame">
+          <iframe src="https://www.instagram.com/reel/DXSgzDsEZTX/embed/" title="Chef on the House" data-poster="p-bubble" loading="lazy" scrolling="no"></iframe>
+        </div>
+        <div class="cap"><b>Chef on the House</b>Series launch · cooking for strangers · <a href="https://www.instagram.com/reel/DXSgzDsEZTX/" target="_blank" rel="noopener">open</a></div>
+      </div>
+      <div class="piece">
+        <div class="frame">
+          <iframe src="https://www.instagram.com/reel/CpB8vPfgDCT/embed/" title="Orly Has A Question" data-poster="p-grape" loading="lazy" scrolling="no"></iframe>
+        </div>
+        <div class="cap"><b>Orly Has A Question</b>[one-line label] · <a href="https://www.instagram.com/reel/CpB8vPfgDCT/" target="_blank" rel="noopener">open</a></div>
+      </div>
+      <div class="piece">
+        <div class="frame">
+          <iframe src="https://www.instagram.com/reel/C0QIXd8JKTi/embed/" title="Orly Has A Question" data-poster="p-sunny" loading="lazy" scrolling="no"></iframe>
+        </div>
+        <div class="cap"><b>Orly Has A Question</b>[one-line label] · <a href="https://www.instagram.com/reel/C0QIXd8JKTi/" target="_blank" rel="noopener">open</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="shead">
+      <div><span class="tag t-blue">Producing</span><h2 style="margin-top:12px">Long-form &amp; development</h2></div>
+      <span class="note">Where the category knowledge comes from</span>
+    </div>
+    <div class="pair">
+      <div class="piece">
+        <div class="wideframe">
+          <iframe src="https://www.youtube.com/embed/l_N7AssXmYc" title="Sticks" data-poster="p-blue" loading="lazy"></iframe>
+        </div>
+        <div class="cap"><b>Sticks — associate producer</b>We Tricked Hollywood Into Buying Our $1 Movie · 1M+ views on a 1.17M-subscriber channel</div>
+      </div>
+      <div class="piece">
+        <div class="wideframe">
+          <iframe src="https://www.youtube.com/embed/PRZTNzG_FYM" title="Stuffed teaser" data-poster="p-tomato" loading="lazy"></iframe>
+        </div>
+        <div class="cap"><b>Stuffed — co-executive producer</b>Original animated kids series in development with Boat Rocker Media and The Operating Room</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="shead">
+      <div><span class="tag t-mint">Writing</span><h2 style="margin-top:12px">Story producing</h2></div>
+    </div>
+    <p class="lede" style="margin:0 0 20px;max-width:64ch;font-size:16px">
+      A 70-minute vertical microdrama for Roseberry Productions (Epis app) — structure, beats and
+      episode breaks for a format built to hold attention in short serialized drops.
+    </p>
+    <div class="links">
+      <a class="lt" href="https://www.facebook.com/reel/2541314316338633" target="_blank" rel="noopener"><b>Epis — microdrama</b><span>Clip one →</span></a>
+      <a class="lt" href="https://www.facebook.com/reel/1219131483530187" target="_blank" rel="noopener"><b>Epis — microdrama</b><span>Clip two →</span></a>
+      <a class="lt" href="https://www.facebook.com/reel/1039513498926197" target="_blank" rel="noopener"><b>Epis — microdrama</b><span>Clip three →</span></a>
+    </div>
+  </section>
+
+  <section>
+    <div class="shead">
+      <div><span class="tag t-sunny">Credits</span><h2 style="margin-top:12px">Selected</h2></div>
+    </div>
+    <div class="rows">
+      <div class="row"><i class="dot"></i><b>Vango Toys</b><span>Content producer — 15–20 short-form pieces a month for upcoming toy launches</span></div>
+      <div class="row"><i class="dot"></i><b>Orly Has A Question</b><span>Own channel. 115K on Instagram and 100K on Facebook in under nine months</span></div>
+      <div class="row"><i class="dot"></i><b>Chef on the House</b><span>Producer. Original series with chef Vlad Briantsev, co-produced with Vango. Current</span></div>
+      <div class="row"><i class="dot"></i><b>Stuffed</b><span>Co-executive producer. Animated kids series in development with Boat Rocker Media</span></div>
+      <div class="row"><i class="dot"></i><b>Roseberry Productions (Epis)</b><span>Story producer. 70-minute vertical microdrama</span></div>
+      <div class="row"><i class="dot"></i><b>Sticks</b><span>Associate producer. Set-ups, scheduling, locations; appeared on camera</span></div>
+      <div class="row"><i class="dot"></i><b>Team Playback</b><span>Creative producer. Short-form video projects</span></div>
+      <div class="row"><i class="dot"></i><b>The Operating Room</b><span>Creative Executive. Sold projects to DreamWorks, The Jim Henson Company, MGA Entertainment and Epic Story Media; co-produced with Fox, Pixar and Bento Box</span></div>
+      <div class="row"><i class="dot"></i><b>Better Listener LLC</b><span>Founder. Production company behind the client and channel work</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="shead">
+      <div><span class="tag">What I run</span><h2 style="margin-top:12px">End to end</h2></div>
+    </div>
+    <div class="caps">
+      <div class="cap2"><b>Production</b><p>One-person mobile setups, batch shoot days, tabletop and interview lighting, directing kids and non-professional talent. On camera when it helps.</p></div>
+      <div class="cap2"><b>Post</b><p>Editing, hook construction, captions, sound design. [Your software list]</p></div>
+      <div class="cap2"><b>Platform</b><p>TikTok, Reels, Shorts. Native publishing, format literacy, cutting for completion rather than views.</p></div>
+      <div class="cap2"><b>Producing</b><p>Content calendars against launch dates, pipeline design for volume, solo or embedded with a full crew.</p></div>
+    </div>
+  </section>
+</div>
+
+<div class="cta">
+  <div class="inner">
+    <h3>Send a brief. I'll come back with three pieces.</h3>
+    <a href="mailto:[your-email]">Get in touch</a>
+  </div>
+</div>
+<p class="fine">Los Angeles · Better Listener LLC · [@handle]</p>
+
+<script>
+/* Every frame rests as a coloured play card with an open-link, and loads its
+   player only on click. A one-time probe checks whether this host allows
+   third-party players at all; where it doesn't, the card is just a link. */
+(function(){
+  function mkOpen(href){
+    var a = document.createElement('a');
+    a.className = 'openbtn';
+    a.setAttribute('href', href);
+    a.setAttribute('target', '_blank');
+    a.setAttribute('rel', 'noopener');
+    a.textContent = 'open ↗';
+    return a;
+  }
+
+  var framesAllowed = null;
+  (function probe(){
+    var t = document.createElement('iframe'), done = false;
+    t.style.cssText = 'position:absolute;left:-9999px;width:1px;height:1px;opacity:0;border:0;pointer-events:none';
+    function settle(v){ if (done) return; done = true; framesAllowed = v; try { t.remove(); } catch (e) {} }
+    t.addEventListener('load', function(){ settle(true); });
+    t.addEventListener('error', function(){ settle(false); });
+    t.setAttribute('src', 'https://www.youtube.com/embed/gh6v7wFbSy4');
+    document.body.appendChild(t);
+    setTimeout(function(){ settle(false); }, 2500);
+  })();
+
+  Array.prototype.forEach.call(document.querySelectorAll('.frame, .wideframe'), function(box){
+    var f = box.querySelector('iframe');
+    if (!f) return;
+
+    var src   = f.getAttribute('src');
+    var title = f.getAttribute('title') || 'Watch';
+    var tone  = f.getAttribute('data-poster') || 'p-grape';
+    var piece = box.parentElement;
+    var link  = piece ? piece.querySelector('.cap a') : null;
+    var href  = link ? link.getAttribute('href') : src;
+
+    f.remove();
+
+    var pos = document.createElement('a');
+    pos.className = 'poster ' + tone;
+    pos.setAttribute('href', href);
+    pos.setAttribute('target', '_blank');
+    pos.setAttribute('rel', 'noopener');
+    pos.setAttribute('aria-label', 'Play ' + title);
+    pos.innerHTML = '<span class="pico">&#9654;</span><span class="plab">Play</span>';
+
+    pos.addEventListener('click', function(ev){
+      if (framesAllowed !== true) return;
+      ev.preventDefault();
+      var i = document.createElement('iframe');
+      i.setAttribute('src', src + (src.indexOf('youtube') > -1 ? '?autoplay=1' : ''));
+      i.setAttribute('title', title);
+      i.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+      i.setAttribute('allowfullscreen', '');
+      i.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+      box.innerHTML = '';
+      box.appendChild(i);
+      box.appendChild(mkOpen(href));
+    });
+
+    box.appendChild(pos);
+    box.appendChild(mkOpen(href));
+  });
+})();
+</script>
+</body>
+</html>
